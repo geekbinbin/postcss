@@ -1,4 +1,16 @@
 @charset "UTF-8";
 body {
   display: flex;
+  animation: flash 5s;
+}
+@keyframes flash {
+  0% {
+    background: #f00;
+  }
+  50% {
+    background: #0f0;
+  }
+  100% {
+    background: #00f;
+  }
 }

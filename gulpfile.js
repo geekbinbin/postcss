@@ -23,6 +23,7 @@ gulp.task('sprite', () => {
     return spriteData.pipe(gulp.dest('dist/imgs/sprite'));
 });
 
+
 gulp.task('watch', () => {
    gulp.watch('src/css/index.css', ['css']);
    gulp.watch('index.html', () => console.log('谁动了我的html...'));
