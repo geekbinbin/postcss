@@ -1,25 +1,32 @@
-var gulp = require('gulp');
-var postcss = require('gulp-postcss');
-var autoprefixer = require('autoprefixer');
-var cssgrace  = require('cssgrace');
-var cssnext  = require('cssnext');
+/**
+ * author: wangbinbin
+ * */
+'use strict';
 
-gulp.task('css', function () {
-    var processors = [
-        autoprefixer({browsers: ['last 3 version'],
-            cascade: false,
-            remove: false
-        }),
-        cssnext(),
-        cssgrace
-    ];
-    return gulp.src('./src/css/*.css')
-        .pipe(postcss(processors))
-        .pipe(gulp.dest('./dist'));
+const gulp = require('gulp');
+const spriteSmith = require('gulp.spritesmith');
+
+gulp.task('css', function() {
+    const postcss = require('gulp-postcss');
+    return gulp.src('src/css/*.css')
+        .pipe(postcss([require('autoprefixer')]))
+        .pipe(gulp.dest('dist/css'));
 });
 
-gulp.task('watch', function(){
-    gulp.watch('./src/css/*.css', ['css']);
+gulp.task('sprite', () => {
+    const spriteData = gulp.src('imgs/' + 'icon-*.png')
+        .pipe(spriteSmith({
+            imgName: 'sprite.png',
+            cssName: 'sprite.less',
+            padding: 2
+        }));
+    return spriteData.pipe(gulp.dest('dist/imgs/sprite'));
 });
 
-gulp.task('default', ['watch', 'css']);
+gulp.task('watch', () => {
+   gulp.watch('src/css/index.css', ['css']);
+   gulp.watch('index.html', () => console.log('谁动了我的html...'));
+   gulp.watch('js/*.js', () => console.log('谁动了我的js...'));
+});
+
+gulp.task('default', ['watch']);
