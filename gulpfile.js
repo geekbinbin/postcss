@@ -5,6 +5,8 @@
 
 const gulp = require('gulp');
 const spriteSmith = require('gulp.spritesmith');
+const zip = require('gulp-zip');
+const del = require('del');
 
 gulp.task('css', function() {
     const postcss = require('gulp-postcss');
@@ -21,6 +23,11 @@ gulp.task('sprite', () => {
             padding: 2
         }));
     return spriteData.pipe(gulp.dest('dist/imgs/sprite'));
+});
+
+
+gulp.task('zip', () => {
+    gulp.src('dist/')
 });
 
 
